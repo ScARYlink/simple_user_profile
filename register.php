@@ -33,7 +33,7 @@ require_once './classes/Auth.class.php';
       </form>
 
       <?php else: ?>
-
+          
       <form class="form-signin ajax" method="post" action="./ajax.php">
         <div class="main-error alert alert-error hide"></div>
 
@@ -49,7 +49,11 @@ require_once './classes/Auth.class.php';
       </form>
 
       <?php endif; ?>
-
+<?php
+if(session_start()) 
+{echo "Online";} 
+else {echo "offline";}
+?>
     </div> <!-- /container -->
 
     <script src="./vendor/jquery-2.0.3.min.js"></script>
