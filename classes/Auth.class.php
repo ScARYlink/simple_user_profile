@@ -65,7 +65,10 @@ class User
     public function authorize($username, $password, $remember=false)
     {
         $query = "select id, username from users where
-            username = :username and password = :password limit 1";
+            username = :username and password = :password limit 1;update users set status = CURRENT_TIMESTAMP where
+            username = :username limit 1";
+        #$query = "update users set status = CURRENT_TIMESTAMP where
+        #    username = :username limit 1";
         $sth = $this->db->prepare($query);
         $salt = $this->getSalt($username);
 
@@ -89,7 +92,6 @@ class User
             $this->user_id = $this->user['id'];
             $this->saveSession($remember);
         }
-
         return $this->is_authorized;
     }
 
@@ -125,7 +127,7 @@ class User
         }
 
         $query = "insert into users (username, password, salt)
-            values (:username, :password, :salt)";
+            values (:username, :password, :salt)";         
         $hashes = $this->passwordHash($password);
         $sth = $this->db->prepare($query);
 

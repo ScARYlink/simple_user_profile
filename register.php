@@ -49,11 +49,7 @@ require_once './classes/Auth.class.php';
       </form>
 
       <?php endif; ?>
-<?php
-if(session_start()) 
-{echo "Online";} 
-else {echo "offline";}
-?>
+
     </div> <!-- /container -->
 
     <script src="./vendor/jquery-2.0.3.min.js"></script>
