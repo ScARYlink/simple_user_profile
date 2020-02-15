@@ -30,6 +30,12 @@ class User
     public static function isAuthorized()
     {
         if (!empty($_SESSION["user_id"])) {
+            /*
+            $query = "update users set status = CURRENT_TIMESTAMP where user_id = :user_id limit 1";
+            $sth = $this->db->prepare($query);
+            $salt = $this->getSalt($username);
+            */
+            
             return (bool) $_SESSION["user_id"];
         }
         return false;
@@ -102,7 +108,7 @@ class User
         }
     }
 
-    public function saveSession($remember = false, $http_only = true, $days = 7)
+    public function saveSession($remember = false, $http_only = true, $days = 1)
     {
         $_SESSION["user_id"] = $this->user_id;
 
@@ -127,7 +133,7 @@ class User
         }
 
         $query = "insert into users (username, password, salt)
-            values (:username, :password, :salt)";         
+            values (:username, :password, :salt);";         
         $hashes = $this->passwordHash($password);
         $sth = $this->db->prepare($query);
 
