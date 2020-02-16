@@ -1,3 +1,14 @@
+<?php
+
+if (!empty($_COOKIE['sid'])) {
+    // check session id in cookies
+    session_id($_COOKIE['sid']);
+}
+
+session_start();
+require_once 'classes/Auth.class.php';
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,18 +25,27 @@
     </head>
     
     <body>
+
+        <?php if (Auth\User::isAuthorized()): ?>
+
             <div id="gameBoard">
                 <span id="gameButtons">
                     <span class="button button2" >
-                        <span id="counter">0</span> раз не проканало
+                        <span id="counter">0</span> попытка(и)
                     </span>
                     
                     <span class="button button3">
-                        <a onclick="startAgain();">Оно никогда не работало!</a>
+                        <a onclick="startAgain();">Обновить!</a>
                     </span>
                     <div id="geo"></div>
+
                 </span>
-                
+                <div class="rule" >
+                        <p id="text_rule">
+                            Правила игры:
+                            необходимо найти все пары одинаковых карточек.
+                        </p>
+                </div>
                 <div id="boxes"> </div>
             </div>
         

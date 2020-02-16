@@ -30,12 +30,23 @@ class User
     public static function isAuthorized()
     {
         if (!empty($_SESSION["user_id"])) {
-            /*
+            /*$host = 'localhost';
+            $user = 'testdb';
+            $pass = 'testdb';
+            $db_name = 'testdb';
+            $mysqli = new mysqli($host, $user, $pass, $db_name);
+                if (!$link) {
+                    echo 'Не могу соединиться с БД. Код ошибки: ' . mysqli_connect_errno() . ', ошибка: ' . mysqli_connect_error();
+                    exit;
+                }
+            mysqli->query("UPDATE `users` SET status = CURRENT_TIMESTAMP where user_id = :user_id limit 1");
+                //$sql = exec($sql);
+            
             $query = "update users set status = CURRENT_TIMESTAMP where user_id = :user_id limit 1";
             $sth = $this->db->prepare($query);
             $salt = $this->getSalt($username);
             */
-            
+
             return (bool) $_SESSION["user_id"];
         }
         return false;

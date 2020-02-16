@@ -12,7 +12,7 @@ require_once 'classes/Auth.class.php';
 <html>
   <head>
     <meta charset="utf-8">
-    <title>PHP Ajax Authorization</title>
+    <title>Auth</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -31,48 +31,59 @@ require_once 'classes/Auth.class.php';
               <button class="btn btn-large btn-primary" type="submit">Logout</button>
           </div>
       </form>
-<?php
-  $host = 'localhost';  // Хост, у нас все локально
-  $user = 'testdb';    // Имя созданного вами пользователя
-  $pass = 'testdb'; // Установленный вами пароль пользователю
-  $db_name = 'testdb';   // Имя базы данных
-  $link = mysqli_connect($host, $user, $pass, $db_name); // Соединяемся с базой
+      <p style="color:blue;">Список пользователей с их статусом:</p>
 
-  // Ругаемся, если соединение установить не удалось
-  if (!$link) {
-    echo 'Не могу соединиться с БД. Код ошибки: ' . mysqli_connect_errno() . ', ошибка: ' . mysqli_connect_error();
-    exit;
-  }
+      <?php
+        $host = 'localhost';  // Хост, у нас все локально
+        $user = 'testdb';    // Имя созданного вами пользователя
+        $pass = 'testdb'; // Установленный вами пароль пользователю
+        $db_name = 'testdb';   // Имя базы данных
+        $link = mysqli_connect($host, $user, $pass, $db_name); // Соединяемся с базой
 
-  $sql = mysqli_query($link, 'SELECT * FROM `users`');
+        // Ругаемся, если соединение установить не удалось
+        if (!$link) {
+          echo 'Не могу соединиться с БД. Код ошибки: ' . mysqli_connect_errno() . ', ошибка: ' . mysqli_connect_error();
+          exit;
+        }
 
-
-  while ($result = mysqli_fetch_array($sql)) {
-
-  	$id = $result['id'];
-  	$username = $result['username'];
-  	$last_visit_time = $result['status'];
+        $sql = mysqli_query($link, 'SELECT * FROM `users`');
 
 
-  	//get timestamp now
-  	date_default_timezone_set ('Europe/Kiev');
-  	$cur_date = strtotime(date("Y-m-d H:i:s"));
-  	//echo "Текущая дата ($cur_date) </br>";
-  	
-  	$get_time_status = strtotime($result['status']);
-  	//echo $get_time_status."</br>";
-  	$get_time_status = $cur_date - $get_time_status; // (24 * 60 * 60)
-  	//echo "разница времени $get_time_status"."</br>";
-  	if ($get_time_status < 300){
-  		$on_off = "online";
-  	} else {
-  		$on_off = "offline";
-  	}
-  	
-    echo "$on_off $username "."Последний раз был в сети: "."$last_visit_time</br>";
-  }
+        while ($result = mysqli_fetch_array($sql)) {
 
-?>
+        	$id = $result['id'];
+        	$username = $result['username'];
+        	$last_visit_time = $result['status'];
+
+
+        	//get timestamp now
+        	date_default_timezone_set ('Europe/Kiev');
+        	$cur_date = strtotime(date("Y-m-d H:i:s"));
+        	//echo "Текущая дата ($cur_date) </br>";
+        	
+        	$get_time_status = strtotime($result['status']);
+        	//echo $get_time_status."</br>";
+        	$get_time_status = $cur_date - $get_time_status; // (24 * 60 * 60)
+        	//echo "разница времени $get_time_status"."</br>";
+        	if ($get_time_status < 300){
+        		$on_off = "<span class='badge badge-pill badge-success' style='color:white;'>online</span>"."Пользователь: $username ";
+            echo $on_off;
+        	} else {
+        		$on_off = "<span class='badge badge-pill badge-danger' style='color:red;'>offline</span>"."Пользователь: $username "."Последний раз был в сети: "."$last_visit_time</br>";
+            echo $on_off;
+        	}
+        	
+          //echo $on_off;
+          
+        }
+      ?>
+      <hr>
+      <div>
+        <button type="button" class="btn btn-info">
+          <a href="game" style="color:black;">Очень интересная кнопка</a>
+        </button>
+      </div>
+
       <?php else: ?>
 
       <form class="form-signin ajax" method="post" action="./ajax.php">

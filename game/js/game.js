@@ -67,9 +67,9 @@ function startAgain() {
     $(mainBoard + " div").css("visibility", "visible");
     $('#geo').css('display','none');
     $(".button2").empty();
-    $(".button2").prepend('<span id="counter">0</span> раз не проканало');
+    $(".button2").prepend('<span id="counter">0</span> попытка');
     $(".button3").empty();
-    $(".button3").prepend('<a onclick="startAgain();">Оно никогда не работало!</a>');
+    $(".button3").prepend('<a onclick="startAgain();">Начать заново!</a>');
     $('.button3').css('background','lime');
 
     $("#success").remove();
@@ -129,7 +129,7 @@ function openCard() {
         // finished!
         if (imgFound == gfxBase.length) {
             $(".button2").empty();
-            $(".button2").prepend('<span id="counter"></span>Выкатили на прод с '+counter + ' раза');
+            $(".button2").prepend('<span id="counter"></span>Использовано '+counter + ' попыток');
             //'<span id="success">Выкатили на прод с </span>'
             //print(counter)
             $('#geo').css('display','block');
