@@ -10,9 +10,9 @@ class User
     private $user_id;
 
     private $db_host = "localhost";
-    private $db_name = "";
-    private $db_user = "";
-    private $db_pass = "";
+    private $db_name = "testdb";
+    private $db_user = "testdb";
+    private $db_pass = "testdb";
 
     private $is_authorized = false;
 
