@@ -121,7 +121,7 @@ class AuthorizationAjaxRequest extends AjaxRequest
         $user->authorize($username, $password1);
 
         $this->message = sprintf("Hello, %s! Thank you for registration.", $username);
-        $this->setResponse("redirect", "/");
+        $this->setResponse("redirect", "./register.php");
         $this->status = "ok";
     }
 }
