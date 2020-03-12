@@ -212,6 +212,21 @@ require_once 'classes/Auth.class.php';
     <script src="./vendor/jquery-2.0.3.min.js"></script>
     <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="./js/ajax-form.js"></script>
+          <script type="text/javascript">
+            setInterval(function() {
+              <?php 
+                $host = 'localhost';  // Хост, у нас все локально
+                $user = '';    // Имя созданного вами пользователя
+                $pass = ''; // Установленный вами пароль пользователю
+                $db_name = '';   // Имя базы данных
+                $link = mysqli_connect($host, $user, $pass, $db_name);
+              //echo $_SESSION["user_id"];
+
+                $user_ping = mysqli_query($link, "UPDATE `users` SET status = CURRENT_TIMESTAMP WHERE id=".$_SESSION["user_id"]."");
+              ?>
+            }, 5000);
+
+          </script>
 
   </body>
 </html>
